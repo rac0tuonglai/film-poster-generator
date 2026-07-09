@@ -7,6 +7,28 @@ const url = `https://www.omdbapi.com/?apikey=${apiKey}&i=${imdbID}`;
 fetch(url)
     .then(response => response.json())
     .then(data => {
+        const downloadBtn = document.getElementById("downloadBtn");
+
+        downloadBtn.addEventListener("click", function () {
+
+            const poster = document.querySelector(".poster");
+
+            html2canvas(poster, {
+                scale: 3,
+                useCORS: true
+            }).then(canvas => {
+
+                const link = document.createElement("a");
+
+                link.download = "movie-poster.png";
+
+                link.href = canvas.toDataURL("image/png");
+
+                link.click();
+
+            });
+
+        });
 
         document.getElementById("movieTitle").innerHTML =
             `${data.Title.toUpperCase()} <span class="year">${data.Year}</span>`;
@@ -17,8 +39,9 @@ fetch(url)
         document.getElementById("movieDirector").textContent =
             data.Director.toUpperCase();
 
-        document.getElementById("moviePoster").src =
-            data.Poster;
+        const posterImg = document.getElementById("moviePoster");
+        posterImg.crossOrigin = "anonymous";
+        posterImg.src = data.Poster;
 
         document.getElementById("movieGenre").innerHTML =
             data.Genre
