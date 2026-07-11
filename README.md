@@ -1,5 +1,6 @@
 live website: https://rac0tuonglai.github.io/film-poster-generator/
 
+inspired by: https://github.com/elliotjarnit/AlbumPosterGenerator
 
 example poster:
 
